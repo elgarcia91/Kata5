@@ -11,23 +11,22 @@ package kata5;
 public class HistogramBuilder<T> {
 
     private Histogram<T> histogram;
+    private T[] items;
 
-    public void build(T[] items) {
-        histogram = new Histogram<>();
+    public HistogramBuilder(T[] items) {
+        this.items = items;
+    }
+
+    public <A> Histogram<A> build(AttributeExtractor<T, A> extractor) {
+        Histogram<A> histogram = new Histogram<>();
         for (T item : items) {
-            histogram.put(item, getFrequency(item) + 1);
+            A attribute = extractor.extract(item);
+            histogram.put(attribute, histogram.get(attribute) + 1);
         }
+        return histogram;
     }
 
     public Histogram<T> getHistogram() {
         return histogram;
-    }
-
-    private int getFrequency(T item) {
-        if (histogram.containsKey(item)) {
-            return histogram.get(item);
-        }
-        return 0;
-
     }
 }

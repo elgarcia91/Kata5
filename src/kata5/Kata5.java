@@ -11,7 +11,9 @@ public class Kata5 {
                 return entity.getDomain();
             }
         });
-        HistogramViewer<String> viewer = new HistogramViewer<>();
+        HistogramViewer<String> viewer = new ConsoleHistogramViewer<>();
         viewer.show(histogram);
+        HistogramViewer<String> viewer2 = new ChartHistogramViewer<>();
+        viewer2.show(histogram);
     }
 }
